@@ -10,6 +10,8 @@ public class User {
         this.password = password;
     }
 
+    public static User myUser;
+
     private int userID;
     private String firstName;
     private String lastName;

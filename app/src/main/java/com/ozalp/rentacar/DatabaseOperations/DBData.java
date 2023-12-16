@@ -49,11 +49,11 @@ public class DBData {
         }
     }
 
-    public void signUpOperations(String query,
-                                 EditText nameEditText,
-                                 EditText surnameEditText,
-                                 EditText emailEditText,
-                                 EditText passwordEditText) {
+    public int signUpOperations(String query,
+                                EditText nameEditText,
+                                EditText surnameEditText,
+                                EditText emailEditText,
+                                EditText passwordEditText) {
 
         try (PreparedStatement preparedStatement = dbData.connection.prepareStatement(query)) {
             preparedStatement.setString(1, nameEditText.getText().toString());
@@ -61,15 +61,36 @@ public class DBData {
             preparedStatement.setString(3, emailEditText.getText().toString());
             preparedStatement.setString(4, passwordEditText.getText().toString());
 
-            int affectedRows = preparedStatement.executeUpdate();
-
-            if (affectedRows > 0) {
-                System.out.println("Kayıt eklendi!");
-            } else {
-                System.out.println("Kayıt eklenemedi!");
-            }
+            return preparedStatement.executeUpdate();
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
+        }
+        return 0;
+    }
+
+    public void loginQuery(String emailText, String passwordText) {
+
+        if (connection != null) {
+            try {
+                String sqlQuery = "SELECT * FROM USERS WHERE Email = '" + emailText + "'";
+                PreparedStatement statement = connection.prepareStatement(sqlQuery);
+                ResultSet resultSet = statement.executeQuery();
+
+                while (resultSet.next()) {
+                    if (passwordText.equals(resultSet.getString("Password"))) {
+                        User tempUser = new User(resultSet.getInt("UserId"),
+                                resultSet.getString("FirstName"),
+                                resultSet.getString("LastName"),
+                                resultSet.getString("Email"),
+                                resultSet.getString("Password")
+                        );
+                        System.out.println(resultSet.getString("FirstName"));
+                    }
+                }
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 

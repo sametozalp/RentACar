@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences  = getSharedPreferences("com.ozalp.rentacar", MODE_PRIVATE);
 
         if(sharedPreferences.getInt("userID", -1) == -1) {
-            Intent intent = new Intent(getApplicationContext(), SignUp.class);
+            Intent intent = new Intent(getApplicationContext(), Login.class);
             startActivity(intent);
             finish();
         }
