@@ -1,9 +1,12 @@
 package com.ozalp.rentacar.DatabaseOperations;
 
+import static com.ozalp.rentacar.MemoryOperations.SharedPreferencesOperations.sharedPreferencesForSucessLogin;
+import static com.ozalp.rentacar.Models.User.myUser;
 import static com.ozalp.rentacar.Pages.MainActivity.dbData;
 
 import android.content.Intent;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.ozalp.rentacar.Models.User;
 import com.ozalp.rentacar.Pages.Login;
@@ -78,13 +81,9 @@ public class DBData {
 
                 while (resultSet.next()) {
                     if (passwordText.equals(resultSet.getString("Password"))) {
-                        User tempUser = new User(resultSet.getInt("UserId"),
-                                resultSet.getString("FirstName"),
-                                resultSet.getString("LastName"),
-                                resultSet.getString("Email"),
-                                resultSet.getString("Password")
-                        );
-                        System.out.println(resultSet.getString("FirstName"));
+                        System.out.println(resultSet.getString("UserId"));
+                        declareMyUser(resultSet);
+                        sharedPreferencesForSucessLogin();
                     }
                 }
                 resultSet.close();
@@ -94,6 +93,18 @@ public class DBData {
         }
     }
 
+    private void declareMyUser(ResultSet resultSet) {
+        try{
+            myUser = new User(resultSet.getInt("UserId"),
+                    resultSet.getString("FirstName"),
+                    resultSet.getString("LastName"),
+                    resultSet.getString("Email"),
+                    resultSet.getString("Password")
+            );
+        }catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+        }
+    }
     public Connection connection;
 }
 //statement.close();

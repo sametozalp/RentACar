@@ -1,5 +1,7 @@
 package com.ozalp.rentacar.Pages;
 
+import static com.ozalp.rentacar.MemoryOperations.SharedPreferencesOperations.sharedPreferences;
+import static com.ozalp.rentacar.Models.User.myUser;
 import static com.ozalp.rentacar.Pages.MainActivity.dbData;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,7 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-import com.ozalp.rentacar.R;
+import com.ozalp.rentacar.Models.User;
 import com.ozalp.rentacar.databinding.ActivityLoginBinding;
 
 public class Login extends AppCompatActivity {
@@ -22,12 +24,14 @@ public class Login extends AppCompatActivity {
         init();
     }
 
+
+
     public void signUpTextView(View view) {
         Intent intent = new Intent(getApplicationContext(), SignUp.class);
         startActivity(intent);
     }
 
-    public void loginButton() {
+    public void loginButton(View view) {
         getEditTextData();
         dbData.loginQuery(emailText, passwordText);
     }
@@ -40,7 +44,11 @@ public class Login extends AppCompatActivity {
     private void init() {
         emailEditText = binding.emailEditText;
         passwordEditText = binding.passwordEditText;
+        emailText = "";
+        passwordText = "";
+        myUser = new User();
     }
+
     String emailText, passwordText;
     EditText emailEditText, passwordEditText;
     ActivityLoginBinding binding;

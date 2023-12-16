@@ -5,6 +5,7 @@ import static com.ozalp.rentacar.Pages.MainActivity.dbData;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;

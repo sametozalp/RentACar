@@ -1,5 +1,8 @@
 package com.ozalp.rentacar.Pages;
 
+import static com.ozalp.rentacar.MemoryOperations.SharedPreferencesOperations.sharedPreferences;
+import static com.ozalp.rentacar.MemoryOperations.SharedPreferencesOperations.sharedPreferencesForSucessLogin;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -20,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        init();
 
        dbData = new DBData(connection());
        dbData.getData();
@@ -27,14 +31,24 @@ public class MainActivity extends AppCompatActivity {
        loginControl();
     }
 
-    private void loginControl() {
+    private void init() {
         sharedPreferences  = getSharedPreferences("com.ozalp.rentacar", MODE_PRIVATE);
+    }
 
-        if(sharedPreferences.getInt("userID", -1) == -1) {
-            Intent intent = new Intent(getApplicationContext(), Login.class);
-            startActivity(intent);
+    private void loginControl() {
+        String tempEmail = sharedPreferences.getString("email", "");
+        String tempPassword = sharedPreferences.getString("password", "");
+        if(tempEmail.equals("")) {
+            goToLoginPage();
             finish();
+        } else {
+            dbData.loginQuery(tempEmail, tempPassword);
         }
+    }
+
+    private void goToLoginPage() {
+        Intent intent = new Intent(getApplicationContext(), Login.class);
+        startActivity(intent);
     }
 
     private Connection connection(){
@@ -43,6 +57,5 @@ public class MainActivity extends AppCompatActivity {
     }
 
     ActivityMainBinding binding;
-    SharedPreferences sharedPreferences;
     public static DBData dbData;
 }
