@@ -1,6 +1,5 @@
 package com.ozalp.rentacar.Pages;
 
-import static com.ozalp.rentacar.MemoryOperations.SharedPreferencesOperations.sharedPreferences;
 import static com.ozalp.rentacar.Models.User.myUser;
 import static com.ozalp.rentacar.Pages.MainActivity.dbData;
 
@@ -33,7 +32,16 @@ public class Login extends AppCompatActivity {
 
     public void loginButton(View view) {
         getEditTextData();
-        dbData.loginQuery(emailText, passwordText);
+        boolean bool = dbData.loginQuery(emailText, passwordText);
+        if(bool) {
+            goToMainActivity();
+            finish();
+        }
+    }
+
+    private void goToMainActivity() {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
     }
 
     private void getEditTextData() {

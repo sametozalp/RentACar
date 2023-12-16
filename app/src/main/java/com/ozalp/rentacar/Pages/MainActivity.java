@@ -1,10 +1,9 @@
 package com.ozalp.rentacar.Pages;
 
-import static com.ozalp.rentacar.MemoryOperations.SharedPreferencesOperations.sharedPreferences;
-import static com.ozalp.rentacar.MemoryOperations.SharedPreferencesOperations.sharedPreferencesForSucessLogin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -57,5 +56,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     ActivityMainBinding binding;
+    public static SharedPreferences sharedPreferences;
     public static DBData dbData;
 }

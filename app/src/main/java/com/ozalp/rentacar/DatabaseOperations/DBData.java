@@ -71,7 +71,7 @@ public class DBData {
         return 0;
     }
 
-    public void loginQuery(String emailText, String passwordText) {
+    public boolean loginQuery(String emailText, String passwordText) {
 
         if (connection != null) {
             try {
@@ -81,16 +81,17 @@ public class DBData {
 
                 while (resultSet.next()) {
                     if (passwordText.equals(resultSet.getString("Password"))) {
-                        System.out.println(resultSet.getString("UserId"));
                         declareMyUser(resultSet);
                         sharedPreferencesForSucessLogin();
+                        resultSet.close();
+                        return true;
                     }
                 }
-                resultSet.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
+        return false;
     }
 
     private void declareMyUser(ResultSet resultSet) {
