@@ -94,18 +94,43 @@ public class DBData {
         return false;
     }
 
+    public void getCarsData() {
+
+
+        if (connection != null) {
+            try {
+                String sqlQuery = "SELECT CarId, BrandName, ColorName, ModelYear, DailyPrice, ModelName, CarImage FROM Cars \n" +
+                        "JOIN BRANDS ON Cars.BrandId = BRANDS.BrandId\n" +
+                        "JOIN Colors ON Cars.ColorId = COLORS.ColorId\n" +
+                        "JOIN CarModels ON Cars.ModelId = CarModels.ModelId";
+
+                PreparedStatement statement = connection.prepareStatement(sqlQuery);
+                ResultSet resultSet = statement.executeQuery();
+
+                while (resultSet.next()) {
+                    System.out.println(resultSet.getString("BrandName"));
+                }
+
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     private void declareMyUser(ResultSet resultSet) {
-        try{
+        try {
             myUser = new User(resultSet.getInt("UserId"),
                     resultSet.getString("FirstName"),
                     resultSet.getString("LastName"),
                     resultSet.getString("Email"),
                     resultSet.getString("Password")
             );
-        }catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
         }
     }
+
     public Connection connection;
 }
 //statement.close();
