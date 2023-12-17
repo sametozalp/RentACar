@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.ozalp.rentacar.Models.Car;
 import com.ozalp.rentacar.Models.User;
 import com.ozalp.rentacar.Pages.Login;
 import com.ozalp.rentacar.Pages.MainActivity;
@@ -17,6 +18,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DBData {
     public DBData() {
@@ -94,8 +96,10 @@ public class DBData {
         return false;
     }
 
-    public void getCarsData() {
+    public ArrayList<Car> getCarsData() {
 
+        Car car;
+        ArrayList<Car> carList = new ArrayList<>();
 
         if (connection != null) {
             try {
@@ -108,7 +112,14 @@ public class DBData {
                 ResultSet resultSet = statement.executeQuery();
 
                 while (resultSet.next()) {
-                    System.out.println(resultSet.getString("BrandName"));
+                    car = new Car(resultSet.getInt("CarId"),
+                            resultSet.getString("BrandName"),
+                            resultSet.getString("ColorName"),
+                            resultSet.getInt("ModelYear"),
+                            resultSet.getInt("DailyPrice"),
+                            resultSet.getString("ModelName"),
+                            resultSet.getString("CarImage"));
+                    carList.add(car);
                 }
 
                 resultSet.close();
@@ -116,6 +127,7 @@ public class DBData {
                 e.printStackTrace();
             }
         }
+        return carList;
     }
 
     private void declareMyUser(ResultSet resultSet) {
