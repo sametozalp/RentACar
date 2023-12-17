@@ -2,7 +2,7 @@ package com.ozalp.rentacar.Models;
 
 public class Car {
 
-    public Car(int carID, String brandName, String colorName, int modelYear, int dailyPrice, String modelName, String carImage) {
+    public Car(int carID, String brandName, String colorName, int modelYear, int dailyPrice, String modelName, String fuelType, String gearType, String carImage) {
         this.carID = carID;
         this.brandName = brandName;
         this.colorName = colorName;
@@ -10,6 +10,8 @@ public class Car {
         this.dailyPrice = dailyPrice;
         this.modelName = modelName;
         this.carImage = carImage;
+        this.fuelType = fuelType;
+        this.gearType = gearType;
     }
 
     public int getCarID() {
@@ -41,6 +43,6 @@ public class Car {
     }
 
     private int carID, modelYear, dailyPrice;
-    private String brandName, colorName, modelName, carImage;
+    private String brandName, colorName, modelName, carImage, fuelType, gearType;
 
 }

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="#EFECEC"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/carImage"
+        android:layout_width="match_parent"
+        android:layout_height="242dp"
+        app:srcCompat="@drawable/araba" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/carBrandAndModelTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:text="Fiat Egea">
+        </TextView>
+        <TextView
+            android:id="@+id/carPriceTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#770606"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:text="400 TL">
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:padding="8dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/GearTypeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:textColor="#6E6666"
+            android:gravity="center"
+            android:textSize="12dp"
+            android:text="Manuel">
+        </TextView>
+        <TextView
+            android:id="@+id/FuelTypeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:textSize="12dp"
+            android:gravity="center"
+            android:textColor="#6E6666"
+            android:text="Benzin">
+        </TextView>
+        <TextView
+            android:id="@+id/ColorTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="12dp"
+            android:textColor="#6E6666"
+            android:text="Kırmızı">
+        </TextView>
+    </LinearLayout>
+
+</LinearLayout>
