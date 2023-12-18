@@ -4,14 +4,10 @@ import static com.ozalp.rentacar.MemoryOperations.SharedPreferencesOperations.sh
 import static com.ozalp.rentacar.Models.User.myUser;
 import static com.ozalp.rentacar.Pages.MainActivity.dbData;
 
-import android.content.Intent;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.ozalp.rentacar.Models.Car;
 import com.ozalp.rentacar.Models.User;
-import com.ozalp.rentacar.Pages.Login;
-import com.ozalp.rentacar.Pages.MainActivity;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,9 +15,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import com.ozalp.rentacar.Pages.MainActivity;
 
 public class DBData {
-    public DBData() {
+    private DBData() {
     }
 
     public DBData(Connection connection) {
@@ -150,6 +147,7 @@ public class DBData {
     }
 
     public Connection connection;
+
 }
 //statement.close();
 //connection.close();

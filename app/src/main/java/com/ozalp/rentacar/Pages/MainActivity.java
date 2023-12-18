@@ -1,6 +1,5 @@
 package com.ozalp.rentacar.Pages;
 
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
