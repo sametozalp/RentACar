@@ -1,6 +1,8 @@
 package com.ozalp.rentacar.Models;
 
-public class Car {
+import java.io.Serializable;
+
+public class Car implements Serializable {
 
     public Car(int carID, String brandName, String colorName, int modelYear, int dailyPrice, String modelName, String fuelType, String gearType, String carImage) {
         this.carID = carID;
@@ -40,6 +42,14 @@ public class Car {
 
     public String getCarImage() {
         return carImage;
+    }
+
+    public String getFuelType() {
+        return fuelType;
+    }
+
+    public String getGearType() {
+        return gearType;
     }
 
     private int carID, modelYear, dailyPrice;

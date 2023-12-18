@@ -103,12 +103,13 @@ public class DBData {
 
         if (connection != null) {
             try {
-                String sqlQuery = "SELECT CarId, BrandName, ColorName, ModelYear, DailyPrice, ModelName, CarImage, FuelType, GearType FROM Cars \n" +
+                String sqlQuery = "SELECT CarId, BrandName, ColorName, ModelYear, DailyPrice, ModelName, CarImage, FuelTypeName, GearTypeName FROM Cars \n" +
                         "JOIN BRANDS ON Cars.BrandId = BRANDS.BrandId\n" +
                         "JOIN Colors ON Cars.ColorId = COLORS.ColorId\n" +
                         "JOIN CarModels ON Cars.ModelId = CarModels.ModelId\n" +
                         "JOIN FuelTypes ON Cars.FuelTypeId = FuelTypes.FuelTypeId\n" +
-                        "JOIN GearTypes ON Cars.GearTypeId = GearTypes.GearId";
+                        "JOIN GearTypes ON Cars.GearTypeId = GearTypes.GearId\n" +
+                        "ORDER BY CarId DESC";
 
                 PreparedStatement statement = connection.prepareStatement(sqlQuery);
                 ResultSet resultSet = statement.executeQuery();
@@ -120,8 +121,8 @@ public class DBData {
                             resultSet.getInt("ModelYear"),
                             resultSet.getInt("DailyPrice"),
                             resultSet.getString("ModelName"),
-                            resultSet.getString("FuelType"),
-                            resultSet.getString("GearType"),
+                            resultSet.getString("FuelTypeName"),
+                            resultSet.getString("GearTypeName"),
                             resultSet.getString("CarImage")
                     );
                     carList.add(car);
@@ -129,7 +130,7 @@ public class DBData {
 
                 resultSet.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                System.out.println(e.getLocalizedMessage());
             }
         }
         return carList;
