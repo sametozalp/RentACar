@@ -2,7 +2,6 @@ package com.ozalp.rentacar.DatabaseOperations;
 
 import static com.ozalp.rentacar.MemoryOperations.SharedPreferencesOperations.sharedPreferencesForSucessLogin;
 import static com.ozalp.rentacar.Models.User.myUser;
-import static com.ozalp.rentacar.Pages.MainActivity.dbData;
 
 import android.widget.EditText;
 
@@ -21,8 +20,17 @@ public class DBData {
     private DBData() {
     }
 
-    public DBData(Connection connection) {
-        this.connection = connection;
+    public static DBData getInstance() {
+        if (instance == null) {
+            connection = connection();
+            instance = new DBData();
+        }
+        return instance;
+    }
+
+    private static Connection connection(){
+        DBConnection dbConnection = new DBConnection();
+        return dbConnection.connect();
     }
 
     public void getData() {
@@ -57,7 +65,7 @@ public class DBData {
                                 EditText emailEditText,
                                 EditText passwordEditText) {
 
-        try (PreparedStatement preparedStatement = dbData.connection.prepareStatement(query)) {
+        try (PreparedStatement preparedStatement = getInstance().connection.prepareStatement(query)) {
             preparedStatement.setString(1, nameEditText.getText().toString());
             preparedStatement.setString(2, surnameEditText.getText().toString());
             preparedStatement.setString(3, emailEditText.getText().toString());
@@ -146,7 +154,8 @@ public class DBData {
         }
     }
 
-    public Connection connection;
+    private static Connection connection;
+    private static DBData instance;
 
 }
 //statement.close();

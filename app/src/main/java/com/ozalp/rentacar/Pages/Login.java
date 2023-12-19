@@ -1,7 +1,6 @@
 package com.ozalp.rentacar.Pages;
 
 import static com.ozalp.rentacar.Models.User.myUser;
-import static com.ozalp.rentacar.Pages.MainActivity.dbData;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import com.ozalp.rentacar.DatabaseOperations.DBData;
 import com.ozalp.rentacar.Models.User;
 import com.ozalp.rentacar.databinding.ActivityLoginBinding;
 
@@ -32,6 +32,7 @@ public class Login extends AppCompatActivity {
 
     public void loginButton(View view) {
         getEditTextData();
+        DBData dbData = DBData.getInstance();
         boolean bool = dbData.loginQuery(emailText, passwordText);
         if(bool) {
             goToMainActivity();

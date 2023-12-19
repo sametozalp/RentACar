@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void init() {
         sharedPreferences  = getSharedPreferences("com.ozalp.rentacar", MODE_PRIVATE);
-        dbData = new DBData(connection());
+        dbData = DBData.getInstance();
         dbData.getData();
     }
 
@@ -62,12 +62,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private Connection connection(){
-        DBConnection dbConnection = new DBConnection();
-        return dbConnection.connect();
-    }
+
 
     ActivityMainBinding binding;
     public static SharedPreferences sharedPreferences;
-    public static DBData dbData;
+    public DBData dbData;
 }
