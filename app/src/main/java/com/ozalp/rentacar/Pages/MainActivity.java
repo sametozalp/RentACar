@@ -10,6 +10,7 @@ import android.os.Bundle;
 import com.ozalp.rentacar.Adapter.CarListAdapter;
 import com.ozalp.rentacar.DatabaseOperations.DBConnection;
 import com.ozalp.rentacar.DatabaseOperations.DBData;
+import com.ozalp.rentacar.MemoryOperations.SharedPreferencesOperations;
 import com.ozalp.rentacar.Models.Car;
 import com.ozalp.rentacar.databinding.ActivityMainBinding;
 
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
-        sharedPreferences  = getSharedPreferences("com.ozalp.rentacar", MODE_PRIVATE);
+        sharedPreferences = SharedPreferencesOperations.getInstance(this);
         dbData = DBData.getInstance();
         dbData.getData();
     }
@@ -62,9 +63,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-
     ActivityMainBinding binding;
-    public static SharedPreferences sharedPreferences;
+    public SharedPreferences sharedPreferences;
     public DBData dbData;
 }

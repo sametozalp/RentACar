@@ -1,7 +1,9 @@
 package com.ozalp.rentacar.MemoryOperations;
 
 import static com.ozalp.rentacar.Models.User.myUser;
-import static com.ozalp.rentacar.Pages.MainActivity.sharedPreferences;
+
+import android.content.Context;
+import android.content.SharedPreferences;
 
 public class SharedPreferencesOperations {
 
@@ -12,4 +14,13 @@ public class SharedPreferencesOperations {
                 .putString("email", myUser.getEmail())
                 .putString("password", myUser.getPassword()).apply();
     }
+
+    public static SharedPreferences getInstance(Context context) {
+        if(sharedPreferences == null) {
+            sharedPreferences  = context.getSharedPreferences("com.ozalp.rentacar", Context.MODE_PRIVATE);
+        }
+        return sharedPreferences;
+    }
+
+    private static SharedPreferences sharedPreferences;
 }
