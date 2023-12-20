@@ -26,7 +26,7 @@ public class DBData {
         return instance;
     }
 
-    private static Connection connection(){
+    private static Connection connection() {
         DBConnection dbConnection = new DBConnection();
         return dbConnection.connect();
     }
@@ -57,11 +57,7 @@ public class DBData {
         }
     }
 
-    public int signUpOperations(String query,
-                                EditText nameEditText,
-                                EditText surnameEditText,
-                                EditText emailEditText,
-                                EditText passwordEditText) {
+    public int signUpOperations(String query, EditText nameEditText, EditText surnameEditText, EditText emailEditText, EditText passwordEditText) {
 
         try (PreparedStatement preparedStatement = getInstance().connection.prepareStatement(query)) {
             preparedStatement.setString(1, nameEditText.getText().toString());
@@ -75,6 +71,27 @@ public class DBData {
         }
         return 0;
     }
+/*
+    public int appointmentRequest(Car car, String formattedStartDate, String formattedEndDate) {
+
+        String query = "INSERT INTO RENTALS (CarId, CustomerId, RentDate, ReturnDate) VALUES (?, ?, ?, ?)";
+
+        try (PreparedStatement preparedStatement = getInstance().connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, car.getCarID());
+            preparedStatement.setInt(2, myUser.getUserID());
+            preparedStatement.setDate(3, formattedStartDate);
+            preparedStatement.setDate(4, formattedEndDate);
+
+            return preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+        }
+
+
+
+        return 0;
+    }
+ */
 
     public boolean loginQuery(String emailText, String passwordText) {
 
@@ -106,7 +123,7 @@ public class DBData {
 
         if (connection != null) {
             try {
-                String sqlQuery = "SELECT CarId, BrandName, ColorName, ModelYear, DailyPrice, ModelName, CarImage, FuelTypeName, GearTypeName FROM Cars \n" +
+                String sqlQuery = "SELECT CarId, BrandName, ColorName, ModelYear, DailyPrice, ModelName, CarImage, FuelTypeName, GearTypeName, CarStatus FROM Cars \n" +
                         "JOIN BRANDS ON Cars.BrandId = BRANDS.BrandId\n" +
                         "JOIN Colors ON Cars.ColorId = COLORS.ColorId\n" +
                         "JOIN CarModels ON Cars.ModelId = CarModels.ModelId\n" +
@@ -126,7 +143,8 @@ public class DBData {
                             resultSet.getString("ModelName"),
                             resultSet.getString("FuelTypeName"),
                             resultSet.getString("GearTypeName"),
-                            resultSet.getString("CarImage")
+                            resultSet.getString("CarImage"),
+                            resultSet.getBoolean("CarStatus")
                     );
                     carList.add(car);
                 }
@@ -154,7 +172,6 @@ public class DBData {
 
     private static Connection connection;
     private static DBData instance;
-
 }
 //statement.close();
 //connection.close();

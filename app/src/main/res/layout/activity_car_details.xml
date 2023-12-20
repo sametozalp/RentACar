@@ -94,7 +94,7 @@
         <Button
             android:onClick="appointmentRequestButton"
             android:layout_marginTop="20dp"
-            android:id="@+id/button2"
+            android:id="@+id/appointmentRequestButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Randevu İsteği Gönder" />

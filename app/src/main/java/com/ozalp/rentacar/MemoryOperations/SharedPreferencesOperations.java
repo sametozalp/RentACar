@@ -7,6 +7,10 @@ import android.content.SharedPreferences;
 
 public class SharedPreferencesOperations {
 
+    private SharedPreferencesOperations() {
+
+    }
+
     public static void sharedPreferencesForSucessLogin() {
         sharedPreferences.edit().putInt("userID", myUser.getUserID())
                 .putString("firstName", myUser.getFirstName())
