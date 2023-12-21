@@ -5,12 +5,15 @@ import androidx.core.util.Pair;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.ozalp.rentacar.DatabaseOperations.DBData;
 import com.ozalp.rentacar.Models.Car;
 import com.ozalp.rentacar.databinding.ActivityCarDetailsBinding;
+
+import net.sourceforge.jtds.jdbc.DateTime;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -44,12 +47,10 @@ public class CarDetails extends AppCompatActivity {
     }
 
     public void appointmentRequestButton(View view) {
-        //dbData.appointmentRequest(car);
         showDateRangePicker();
     }
 
     private void showDateRangePicker() {
-        // Tarih aralığını seçmek için MaterialDatePicker oluştur
         MaterialDatePicker<androidx.core.util.Pair<Long, Long>> dateRangePicker = MaterialDatePicker.Builder.dateRangePicker()
                 .setTitleText("Tarih Aralığını Seçin")
                 .setPositiveButtonText("Onayla!")
@@ -58,28 +59,55 @@ public class CarDetails extends AppCompatActivity {
         dateRangePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
             @Override
             public void onPositiveButtonClick(Object selection) {
-                // Tarih aralığı seçildiğinde yapılacak işlemler
                 if (selection instanceof Pair) {
                     Pair<Long, Long> dateRange = (Pair<Long, Long>) selection;
                     long startDate = dateRange.first;
                     long endDate = dateRange.second;
 
+
                     String formattedStartDate = formatDate(startDate);
                     String formattedEndDate = formatDate(endDate);
 
-                    System.out.println(formattedStartDate + " " + formattedEndDate);
+                    dbData.appointmentRequest(car, formattedStartDate, formattedEndDate);
+
+                    Toast.makeText(getApplicationContext(), "Randevu isteğiniz gönderilmiştir.", Toast.LENGTH_LONG).show();
+                    binding.appointmentRequestButton.setEnabled(false);
+
                 }
             }
         });
 
-        // MaterialDatePicker'ı göster
         dateRangePicker.show(getSupportFragmentManager(), dateRangePicker.toString());
     }
     private String formatDate(long dateInMillis) {
-        // Tarihi istediğiniz formata dönüştürmek için SimpleDateFormat kullanın
         SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd", Locale.getDefault());
         return sdf.format(new Date(dateInMillis));
     }
+
+    /*
+    Date formattedStartDate = formatDate(startDate);
+                    Date formattedEndDate = formatDate(endDate);
+
+                    System.out.println(formattedStartDate + "-" + formattedEndDate);
+                    //dbData.appointmentRequest(car, formattedStartDate, formattedStartDate);
+                }
+            }
+        });
+
+        dateRangePicker.show(getSupportFragmentManager(), dateRangePicker.toString());
+    }
+    private Date formatDate(long dateInMillis) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd", Locale.getDefault());
+        String strDate = sdf.format(new Date(dateInMillis));
+        Date date;
+        try {
+            date = sdf.parse(strDate);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        return date;
+    }
+     */
     private void buttonVisibility(Boolean carStatus) {
         if (carStatus == true) {
             binding.appointmentRequestButton.setText("Araç şu anda kiralamaya uygun değil");

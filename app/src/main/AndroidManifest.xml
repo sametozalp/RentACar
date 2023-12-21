@@ -17,10 +17,7 @@
         android:theme="@style/Theme.RentACar"
         tools:targetApi="31">
         <activity
-            android:name=".Pages.CarDetails"
-            android:exported="false" />
-        <activity
-            android:name=".Deneme"
+            android:name=".Pages.AppointmentRequest"
             android:exported="false" />
         <activity
             android:name=".Pages.Login"

@@ -5,14 +5,17 @@ import static com.ozalp.rentacar.Models.User.myUser;
 
 import android.widget.EditText;
 
+import com.ozalp.rentacar.Models.Appointment;
 import com.ozalp.rentacar.Models.Car;
 import com.ozalp.rentacar.Models.User;
+import com.ozalp.rentacar.Pages.AppointmentRequest;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class DBData {
     private DBData() {
@@ -71,7 +74,8 @@ public class DBData {
         }
         return 0;
     }
-/*
+
+    // randevu isteği gönderir
     public int appointmentRequest(Car car, String formattedStartDate, String formattedEndDate) {
 
         String query = "INSERT INTO RENTALS (CarId, CustomerId, RentDate, ReturnDate) VALUES (?, ?, ?, ?)";
@@ -79,19 +83,51 @@ public class DBData {
         try (PreparedStatement preparedStatement = getInstance().connection.prepareStatement(query)) {
             preparedStatement.setInt(1, car.getCarID());
             preparedStatement.setInt(2, myUser.getUserID());
-            preparedStatement.setDate(3, formattedStartDate);
-            preparedStatement.setDate(4, formattedEndDate);
+            preparedStatement.setString(3, formattedStartDate);
+            preparedStatement.setString(4, formattedEndDate);
 
             return preparedStatement.executeUpdate();
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
         }
 
-
-
         return 0;
     }
- */
+
+    // gönderilen randevu isteklerinin bilgisini alır
+    public ArrayList<Appointment> getAppointmentData() {
+        Appointment appointment;
+        ArrayList<Appointment> appointmentList = new ArrayList<>();
+
+        if (connection != null) {
+            try {
+                String sqlQuery = "SELECT * FROM Rentals";
+
+                PreparedStatement statement = connection.prepareStatement(sqlQuery);
+                ResultSet resultSet = statement.executeQuery();
+
+                while (resultSet.next()) {
+                    appointment = new Appointment(
+                            resultSet.getInt("RentalId"),
+                            resultSet.getInt("CarId"),
+                            resultSet.getInt("CustomerId"),
+                            resultSet.getString("RentDate"),
+                            resultSet.getString("ReturnDate"),
+                            resultSet.getBoolean("CarStatus")
+                    );
+
+                    appointmentList.add(appointment);
+                }
+
+                resultSet.close();
+            } catch (SQLException e) {
+                System.out.println(e.getLocalizedMessage());
+            }
+        }
+
+        return appointmentList;
+    }
+
 
     public boolean loginQuery(String emailText, String passwordText) {
 
