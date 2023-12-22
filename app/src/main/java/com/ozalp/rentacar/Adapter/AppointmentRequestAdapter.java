@@ -1,5 +1,6 @@
 package com.ozalp.rentacar.Adapter;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,24 @@ public class AppointmentRequestAdapter extends RecyclerView.Adapter<AppointmentR
 
     @Override
     public void onBindViewHolder(@NonNull AppointmentHolder holder, int position) {
+        if(appointmentList.get(position).getCarStatus().equals("Onaylandı")) {
+            holder.appointmentRequestRowBinding.statusTextView.setText("Onay Durumu: " + appointmentList.get(position).getCarStatus());
+            holder.appointmentRequestRowBinding.statusTextView.setTextColor(Color.parseColor("#09471A"));
+        } else if(appointmentList.get(position).getCarStatus().equals("Reddedildi")) {
+            holder.appointmentRequestRowBinding.statusTextView.setText("Onay Durumu: " + appointmentList.get(position).getCarStatus());
+            holder.appointmentRequestRowBinding.statusTextView.setTextColor(Color.parseColor("#670606"));
+        } else {
+            holder.appointmentRequestRowBinding.statusTextView.setText("Onay Durumu: " + appointmentList.get(position).getCarStatus());
+            holder.appointmentRequestRowBinding.statusTextView.setTextColor(Color.GRAY);
+        }
+        holder.appointmentRequestRowBinding.rentalIDTextView.setText("Rental ID: " + appointmentList.get(position).getRentalID());
+        holder.appointmentRequestRowBinding.carIDTextView.setText("Car ID: " + appointmentList.get(position).getCarID());
+        holder.appointmentRequestRowBinding.customerIDTextView.setText("Customer ID: " + appointmentList.get(position).getCustomerID());
+        holder.appointmentRequestRowBinding.carBrandAndModelTextView.setText(appointmentList.get(position).getCarTitle());
+        holder.appointmentRequestRowBinding.dailyPriceTextView.setText("Günlük: " + appointmentList.get(position).getDailyPrice() + " TL");
+        holder.appointmentRequestRowBinding.colorTextView.setText(appointmentList.get(position).getColorName());
+        holder.appointmentRequestRowBinding.rentDateTextView.setText("Teslim Alınacak Tarih: "+ appointmentList.get(position).getRentDate());
+        holder.appointmentRequestRowBinding.returnDateTextView.setText("Teslim Edilecek Tarih: " + appointmentList.get(position).getReturnDate());
     }
 
     @Override

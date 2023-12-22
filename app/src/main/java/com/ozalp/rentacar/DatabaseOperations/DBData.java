@@ -101,7 +101,31 @@ public class DBData {
 
         if (connection != null) {
             try {
-                String sqlQuery = "SELECT * FROM Rentals";
+                String sqlQuery = "SELECT \n" +
+                        "    rentals.RentalId, \n" +
+                        "    rentals.CarId, \n" +
+                        "    rentals.CustomerId, \n" +
+                        "    brands.BrandName + ' ' + carmodels.ModelName + ' ' + CAST(cars.ModelYear AS nvarchar(10)) AS CarTitle,\n" +
+                        "\tcars.DailyPrice,\n" +
+                        "\tcolors.ColorName,\n" +
+                        "    rentals.RentDate, \n" +
+                        "    rentals.ReturnDate,\n" +
+                        "\tstatuses.CarStatus\n" +
+                        "FROM \n" +
+                        "    rentals rentals\n" +
+                        "JOIN \n" +
+                        "    cars cars ON rentals.CarId = cars.CarId\n" +
+                        "JOIN \n" +
+                        "    brands brands ON cars.BrandId = brands.BrandId\n" +
+                        "JOIN\n" +
+                        "\tcolors colors ON colors.ColorId = cars.ColorId\n" +
+                        "JOIN\n" +
+                        "\tstatuses statuses ON statuses.StatusId = rentals.CarStatusId\n" +
+                        "JOIN\n" +
+                        "\tcarmodels carmodels ON carmodels.ModelId = rentals.CarId\n" +
+                        "WHERE CustomerId = "
+                        + myUser.getUserID() + "\n"
+                        + "ORDER BY RentalId DESC\n";
 
                 PreparedStatement statement = connection.prepareStatement(sqlQuery);
                 ResultSet resultSet = statement.executeQuery();
@@ -111,9 +135,12 @@ public class DBData {
                             resultSet.getInt("RentalId"),
                             resultSet.getInt("CarId"),
                             resultSet.getInt("CustomerId"),
+                            resultSet.getInt("DailyPrice"),
+                            resultSet.getString("CarTitle"),
+                            resultSet.getString("ColorName"),
                             resultSet.getString("RentDate"),
                             resultSet.getString("ReturnDate"),
-                            resultSet.getInt("CarStatusId")
+                            resultSet.getString("CarStatus")
                     );
 
                     appointmentList.add(appointment);
