@@ -1,13 +1,13 @@
 package com.ozalp.rentacar.Models;
 
 public class Appointment {
-    public Appointment(int rentalID, int carID, int customerID, String rentDate, String returnDate, Boolean carStatus) {
+    public Appointment(int rentalID, int carID, int customerID, String rentDate, String returnDate, int carStatusID) {
         this.rentalID = rentalID;
         this.carID = carID;
         this.customerID = customerID;
         this.rentDate = rentDate;
         this.returnDate = returnDate;
-        this.carStatus = carStatus;
+        this.carStatusID = carStatusID;
     }
 
     public int getRentalID() {
@@ -30,11 +30,10 @@ public class Appointment {
         return returnDate;
     }
 
-    public Boolean getCarStatus() {
-        return carStatus;
+    public int getCarStatusID() {
+        return carStatusID;
     }
 
-    private int rentalID, carID, customerID;
+    private int rentalID, carID, customerID, carStatusID;
     private String rentDate, returnDate;
-    private Boolean carStatus;
 }

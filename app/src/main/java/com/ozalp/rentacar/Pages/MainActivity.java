@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void carListingOperations() {
-        ArrayList<Car> carList = new ArrayList<>(dbData.getCarsData());
+        carList = new ArrayList<>(dbData.getCarsData());
         showCarList(carList);
     }
 
@@ -83,4 +83,5 @@ public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
     public SharedPreferences sharedPreferences;
     public DBData dbData;
+    ArrayList<Car> carList;
 }

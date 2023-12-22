@@ -113,7 +113,7 @@ public class DBData {
                             resultSet.getInt("CustomerId"),
                             resultSet.getString("RentDate"),
                             resultSet.getString("ReturnDate"),
-                            resultSet.getBoolean("CarStatus")
+                            resultSet.getInt("CarStatusId")
                     );
 
                     appointmentList.add(appointment);

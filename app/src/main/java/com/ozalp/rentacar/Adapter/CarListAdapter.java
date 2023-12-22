@@ -26,13 +26,13 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.CarHolde
     @NonNull
     @Override
     public CarHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        CarCardViewBinding carCardViewBinding = CarCardViewBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false);
+        CarCardViewBinding carCardViewBinding = CarCardViewBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         return new CarHolder(carCardViewBinding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CarHolder holder, int position) {
-        try{
+        try {
             holder.carCardViewBinding.carPriceTextView.setText(String.valueOf(carList.get(position).getDailyPrice()) + " TL");
             holder.carCardViewBinding.carBrandAndModelTextView.setText(carList.get(position).getBrandName() + " " + carList.get(position).getModelName() + " " + carList.get(position).getModelYear());
             holder.carCardViewBinding.GearTypeTextView.setText(carList.get(position).getGearType());
@@ -42,17 +42,17 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.CarHolde
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    try{
+                    try {
                         Intent intent = new Intent(holder.itemView.getContext(), CarDetails.class);
                         intent.putExtra("car", (Serializable) carList.get(position));
                         holder.itemView.getContext().startActivity(intent);
-                    }catch (Exception e) {
+                    } catch (Exception e) {
                         System.out.println(e.getLocalizedMessage());
                     }
                 }
             });
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
         }
 
@@ -63,8 +63,9 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.CarHolde
         return carList.size();
     }
 
-    class CarHolder extends RecyclerView.ViewHolder{
+    class CarHolder extends RecyclerView.ViewHolder {
         CarCardViewBinding carCardViewBinding;
+
         public CarHolder(CarCardViewBinding carCardViewBinding) {
             super(carCardViewBinding.getRoot());
             this.carCardViewBinding = carCardViewBinding;

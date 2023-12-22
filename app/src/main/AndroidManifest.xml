@@ -20,6 +20,9 @@
             android:name=".Pages.AppointmentRequest"
             android:exported="false" />
         <activity
+            android:name=".Pages.CarDetails"
+            android:exported="false" />
+        <activity
             android:name=".Pages.Login"
             android:exported="false" />
         <activity
