@@ -106,6 +106,7 @@ public class DBData {
                         "    rentals.CarId, \n" +
                         "    rentals.CustomerId, \n" +
                         "    brands.BrandName + ' ' + carmodels.ModelName + ' ' + CAST(cars.ModelYear AS nvarchar(10)) AS CarTitle,\n" +
+                        "\tDATEDIFF(DAY, PARSE(RentDate AS datetime USING 'en-US'),PARSE(ReturnDate AS datetime USING 'en-US')) + 1 AS TotalRentDays,\n" +
                         "\tcars.DailyPrice,\n" +
                         "\tcolors.ColorName,\n" +
                         "    rentals.RentDate, \n" +
@@ -123,9 +124,9 @@ public class DBData {
                         "\tstatuses statuses ON statuses.StatusId = rentals.CarStatusId\n" +
                         "JOIN\n" +
                         "\tcarmodels carmodels ON carmodels.ModelId = rentals.CarId\n" +
-                        "WHERE CustomerId = "
-                        + myUser.getUserID() + "\n"
-                        + "ORDER BY RentalId DESC\n";
+                        "WHERE CustomerId = " +
+                        myUser.getUserID() + "\n" +
+                        "ORDER BY RentalId DESC";
 
                 PreparedStatement statement = connection.prepareStatement(sqlQuery);
                 ResultSet resultSet = statement.executeQuery();
@@ -135,6 +136,7 @@ public class DBData {
                             resultSet.getInt("RentalId"),
                             resultSet.getInt("CarId"),
                             resultSet.getInt("CustomerId"),
+                            resultSet.getInt("TotalRentDays"),
                             resultSet.getInt("DailyPrice"),
                             resultSet.getString("CarTitle"),
                             resultSet.getString("ColorName"),

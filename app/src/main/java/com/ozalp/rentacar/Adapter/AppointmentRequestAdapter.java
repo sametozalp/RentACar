@@ -48,8 +48,10 @@ public class AppointmentRequestAdapter extends RecyclerView.Adapter<AppointmentR
         holder.appointmentRequestRowBinding.carBrandAndModelTextView.setText(appointmentList.get(position).getCarTitle());
         holder.appointmentRequestRowBinding.dailyPriceTextView.setText("Günlük: " + appointmentList.get(position).getDailyPrice() + " TL");
         holder.appointmentRequestRowBinding.colorTextView.setText(appointmentList.get(position).getColorName());
-        holder.appointmentRequestRowBinding.rentDateTextView.setText("Teslim Alınacak Tarih: "+ appointmentList.get(position).getRentDate());
-        holder.appointmentRequestRowBinding.returnDateTextView.setText("Teslim Edilecek Tarih: " + appointmentList.get(position).getReturnDate());
+        holder.appointmentRequestRowBinding.rentDateTextView.setText("Teslim Alınacak: "+ appointmentList.get(position).getRentDate());
+        holder.appointmentRequestRowBinding.returnDateTextView.setText("Teslim Edilecek: " + appointmentList.get(position).getReturnDate());
+        holder.appointmentRequestRowBinding.totalRentDaysTextView.setText(appointmentList.get(position).getTotalRentDays() + " gün");
+        holder.appointmentRequestRowBinding.totalPriceTextView.setText("Toplam Fiyat: " + appointmentList.get(position).getDailyPrice() * appointmentList.get(position).getTotalRentDays() + " TL");
     }
 
     @Override
