@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private void carListingOperations() {
         carList = new ArrayList<>(dbData.getCarsData());
         showCarList(carList);
+        binding.totalListSizeTextView.setText("Toplam " + carList.size() + " sonuç listeleniyor..");
     }
 
     private void showCarList(ArrayList<Car> carList) {
