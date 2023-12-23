@@ -181,7 +181,7 @@ public class DBData {
         return false;
     }
 
-    public ArrayList<Car> getCarsData() {
+    public ArrayList<Car> getCarsData(String orderByOrWhereQuery) {
 
         Car car;
         ArrayList<Car> carList = new ArrayList<>();
@@ -194,7 +194,7 @@ public class DBData {
                         "JOIN CarModels ON Cars.ModelId = CarModels.ModelId\n" +
                         "JOIN FuelTypes ON Cars.FuelTypeId = FuelTypes.FuelTypeId\n" +
                         "JOIN GearTypes ON Cars.GearTypeId = GearTypes.GearId\n" +
-                        "ORDER BY CarId DESC";
+                        orderByOrWhereQuery;
 
                 PreparedStatement statement = connection.prepareStatement(sqlQuery);
                 ResultSet resultSet = statement.executeQuery();

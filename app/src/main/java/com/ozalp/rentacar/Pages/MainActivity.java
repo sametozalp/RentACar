@@ -1,24 +1,28 @@
 package com.ozalp.rentacar.Pages;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
 
 import com.ozalp.rentacar.Adapter.CarListAdapter;
-import com.ozalp.rentacar.DatabaseOperations.DBConnection;
 import com.ozalp.rentacar.DatabaseOperations.DBData;
 import com.ozalp.rentacar.MemoryOperations.SharedPreferencesOperations;
 import com.ozalp.rentacar.Models.Car;
-import com.ozalp.rentacar.R;
 import com.ozalp.rentacar.databinding.ActivityMainBinding;
 
-import java.sql.Connection;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,7 +35,48 @@ public class MainActivity extends AppCompatActivity {
         init();
         appbar();
         loginControl();
-        carListingOperations();
+    }
+    private void spinnerOperations() {
+        Spinner spinner = binding.spinner;
+        ArrayList<String> spinnerProperties = new ArrayList<>();
+        spinnerProperties.add("Son eklenene göre sırala");
+        spinnerProperties.add("İlk eklenene göre sırala");
+        spinnerProperties.add("Markaya göre sırala");
+        spinnerProperties.add("Modele göre sırala");
+        spinnerProperties.add("Vites türüne göre sırala");
+        spinnerProperties.add("Yakıt türüne göre sırala");
+
+        // ArrayAdapter oluştur ve Spinner'a bağla
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, spinnerProperties);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        // Spinner'daki öğeleri dinlemek için OnItemSelectedListener ekleyin
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                if(position == 0) { // son eklenene göre
+                    orderByOrWhereQuery = "ORDER BY CarId DESC";
+                } else if(position == 1) { // ilk eklenene göre
+                    orderByOrWhereQuery = "ORDER BY CarId ASC";
+                } else if(position == 2) { // markaya göre
+
+                }
+                carListingOperations(orderByOrWhereQuery);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+            }
+        });
+    }
+    String selectedRadioButton = "";
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        spinnerOperations();
+        carListingOperations(orderByOrWhereQuery);
     }
 
     public void floatButton(View view) {
@@ -46,8 +91,8 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitleTextColor(Color.WHITE);
     }
 
-    private void carListingOperations() {
-        carList = new ArrayList<>(dbData.getCarsData());
+    private void carListingOperations(String orderByOrWhereQuery) {
+        carList = new ArrayList<>(dbData.getCarsData(orderByOrWhereQuery));
         showCarList(carList);
         binding.totalListSizeTextView.setText("Toplam " + carList.size() + " sonuç listeleniyor..");
     }
@@ -68,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
     private void loginControl() {
         String tempEmail = sharedPreferences.getString("email", "");
         String tempPassword = sharedPreferences.getString("password", "");
-        if(tempEmail.equals("")) {
+        if (tempEmail.equals("")) {
             goToLoginPage();
             finish();
         } else {
@@ -85,4 +130,5 @@ public class MainActivity extends AppCompatActivity {
     public SharedPreferences sharedPreferences;
     public DBData dbData;
     ArrayList<Car> carList;
+    private String orderByOrWhereQuery = "ORDER BY CarId DESC";
 }
