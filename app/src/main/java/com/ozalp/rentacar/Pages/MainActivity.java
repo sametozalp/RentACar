@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.ozalp.rentacar.Adapter.CarListAdapter;
 import com.ozalp.rentacar.DatabaseOperations.DBData;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         appbar();
         loginControl();
     }
+
     private void spinnerOperations() {
         Spinner spinner = binding.spinner;
         ArrayList<String> spinnerProperties = new ArrayList<>();
@@ -46,31 +48,73 @@ public class MainActivity extends AppCompatActivity {
         spinnerProperties.add("Vites türüne göre sırala");
         spinnerProperties.add("Yakıt türüne göre sırala");
 
-        // ArrayAdapter oluştur ve Spinner'a bağla
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, spinnerProperties);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        // Spinner'daki öğeleri dinlemek için OnItemSelectedListener ekleyin
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                if(position == 0) { // son eklenene göre
+                if (position == 0) { // son eklenene göre
                     orderByOrWhereQuery = "ORDER BY CarId DESC";
-                } else if(position == 1) { // ilk eklenene göre
+                } else if (position == 1) { // ilk eklenene göre
                     orderByOrWhereQuery = "ORDER BY CarId ASC";
-                } else if(position == 2) { // markaya göre
-
+                } else if (position == 2) { // markaya göre
+                    alertDialog();
                 }
                 carListingOperations(orderByOrWhereQuery);
             }
+
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
             }
         });
     }
-    String selectedRadioButton = "";
+
+    private void alertDialog() {
+        try {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle("Seçenekleri Seçin");
+
+            // RadioButtonları içerecek bir RadioGroup oluştur
+            RadioGroup radioGroup = new RadioGroup(MainActivity.this);
+            radioGroup.setOrientation(RadioGroup.VERTICAL);
+
+            ArrayList<String> optionList = new ArrayList();
+            optionList.add("selam");
+            optionList.add("bebek");
+            // RadioButtonları for döngüsü ile ekleyin
+            for (String option : optionList) {
+                RadioButton radioButton = new RadioButton(MainActivity.this);
+                radioButton.setText(option);
+                radioGroup.addView(radioButton);
+            }
+
+            // RadioGroup'u AlertDialog'a ekle
+            builder.setView(radioGroup);
+
+            // Pozitif buton (Seçildiğinde yapılacak işlemler)
+            builder.setPositiveButton("Tamam", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // Seçilen RadioButton'ın değerini al
+                    int selectedId = radioGroup.getCheckedRadioButtonId();
+                    if (selectedId != -1) {
+                        RadioButton selectedRadioButton = radioGroup.findViewById(selectedId);
+                        selectedRadioOption = selectedRadioButton.getText().toString();
+                        System.out.println(selectedRadioButton);
+                    }
+                }
+            });
+
+            // AlertDialog'u göster
+            builder.show();
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+        }
+    }
+    String selectedRadioOption = "";
 
     @Override
     protected void onStart() {
