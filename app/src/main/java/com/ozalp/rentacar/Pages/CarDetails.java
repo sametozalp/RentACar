@@ -66,8 +66,8 @@ public class CarDetails extends AppCompatActivity {
                     long endDate = dateRange.second;
 
 
-                    String formattedStartDate = formatDate(startDate);
-                    String formattedEndDate = formatDate(endDate);
+                    String formattedStartDate = "20" + formatDate(startDate);
+                    String formattedEndDate = "20" + formatDate(endDate);
 
                     dbSendData.appointmentRequest(car, formattedStartDate, formattedEndDate);
 

@@ -146,7 +146,7 @@ public class DBGetData extends DBData {
                         "JOIN\n" +
                         "\tstatuses statuses ON statuses.StatusId = rentals.CarStatusId\n" +
                         "JOIN\n" +
-                        "\tcarmodels carmodels ON carmodels.ModelId = rentals.CarId\n" +
+                        "\tcarmodels carmodels ON carmodels.ModelId = cars.ModelId\n" +
                         "WHERE CustomerId = " +
                         myUser.getUserID() + "\n" +
                         "ORDER BY RentalId DESC";
