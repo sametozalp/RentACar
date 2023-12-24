@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import androidx.appcompat.app.AlertDialog;
 
 import com.ozalp.rentacar.DatabaseOperations.DBData;
+import com.ozalp.rentacar.DatabaseOperations.DBGetData;
 import com.ozalp.rentacar.Pages.MainActivity;
 import com.ozalp.rentacar.databinding.ActivityMainBinding;
 
@@ -32,8 +33,8 @@ public class SpinnerOperations {
         spinnerProperties.add("Yakıt türüne göre sırala");
         spinnerProperties.add("Fiyata göre sırala (Yüksekten düşüğe)");
         spinnerProperties.add("Fiyata göre sırala (Düşükten yükseğe)");
-        spinnerProperties.add("Modele göre sırala (Yüksekten düşüğe)");
-        spinnerProperties.add("Modele göre sırala (Düşükten yükseğe)");
+        spinnerProperties.add("Yıla göre sırala (Önce en yeni)");
+        spinnerProperties.add("Yıla göre sırala (Önce en eski)");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, spinnerProperties);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -47,20 +48,20 @@ public class SpinnerOperations {
                 } else if (position == 1) { // ilk eklenene göre
                     orderByOrWhereQuery = "ORDER BY CarId ASC";
                 } else if (position == 2) { // markaya göre
-                    alertDialog(context, mainActivity, dbData.getBrandsData(), position);
+                    alertDialog(context, mainActivity, dbGetData.getBrandsData(), position);
                 } else if (position == 3) { // modele göre
-                    alertDialog(context, mainActivity, dbData.getCarModelsData(), position);
+                    alertDialog(context, mainActivity, dbGetData.getCarModelsData(), position);
                 } else if (position == 4) { // vites türüne göre
-                    alertDialog(context, mainActivity, dbData.getCarGearTypesData(), position);
+                    alertDialog(context, mainActivity, dbGetData.getCarGearTypesData(), position);
                 } else if (position == 5) { // yakıt türüne göre
-                    alertDialog(context, mainActivity, dbData.getCarFuelTypesData(), position);
+                    alertDialog(context, mainActivity, dbGetData.getCarFuelTypesData(), position);
                 } else if (position == 6) { // fiyata göre (yüksekten düşüğe)
                     orderByOrWhereQuery = "ORDER BY DailyPrice DESC";
                 } else if (position == 7) { // fiyata göre (düşükten yükseğe)
                     orderByOrWhereQuery = "ORDER BY DailyPrice ASC";
-                } else if (position == 8) { // modele göre (yüksekten düşüğe)
+                } else if (position == 8) { // yıla göre (yüksekten düşüğe)
                     orderByOrWhereQuery = "ORDER BY ModelYear DESC";
-                } else if (position == 9) { // modele göre (düşükten yükseğe)
+                } else if (position == 9) { // yıla göre (düşükten yükseğe)
                     orderByOrWhereQuery = "ORDER BY ModelYear ASC";
                 }
 
@@ -83,6 +84,7 @@ public class SpinnerOperations {
 
             RadioGroup radioGroup = new RadioGroup(context);
             radioGroup.setOrientation(RadioGroup.VERTICAL);
+            radioGroup.setPadding(35,30,10,10);
 
 
             for (Object option : optionList.values()) {
@@ -129,4 +131,5 @@ public class SpinnerOperations {
     private static String selectedRadioOption = null;
     private static String orderByOrWhereQuery = null;
     private static DBData dbData = DBData.getInstance();
+    private static DBGetData dbGetData = DBGetData.getInstance();
 }

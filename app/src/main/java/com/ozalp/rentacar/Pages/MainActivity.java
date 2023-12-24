@@ -12,6 +12,7 @@ import android.view.View;
 
 import com.ozalp.rentacar.Adapter.CarListAdapter;
 import com.ozalp.rentacar.DatabaseOperations.DBData;
+import com.ozalp.rentacar.DatabaseOperations.DBGetData;
 import com.ozalp.rentacar.MemoryOperations.SharedPreferencesOperations;
 import com.ozalp.rentacar.Models.Car;
 import com.ozalp.rentacar.Spinner.SpinnerOperations;
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void carListingOperations(String orderByOrWhereQuery) {
-        carList = new ArrayList<>(dbData.getCarsData(orderByOrWhereQuery));
+        carList = new ArrayList<>(dbGetData.getCarsData(orderByOrWhereQuery));
         showCarList(carList);
         binding.totalListSizeTextView.setText("Toplam " + carList.size() + " sonuç listeleniyor..");
     }
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences = SharedPreferencesOperations.getInstance(this);
         SpinnerOperations.spinnerOperations(binding, MainActivity.this, this);
         dbData = DBData.getInstance();
+        dbGetData = DBGetData.getInstance();
         dbData.getData();
     }
 
@@ -91,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
     public SharedPreferences sharedPreferences;
     private DBData dbData;
+    private DBGetData dbGetData;
     ArrayList<Car> carList;
     private String orderByOrWhereQuery = "ORDER BY CarId DESC";
 }

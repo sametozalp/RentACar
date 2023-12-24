@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.ozalp.rentacar.Adapter.AppointmentRequestAdapter;
 import com.ozalp.rentacar.DatabaseOperations.DBData;
+import com.ozalp.rentacar.DatabaseOperations.DBGetData;
 import com.ozalp.rentacar.Models.Appointment;
 import com.ozalp.rentacar.databinding.ActivityAppointmentRequestBinding;
 
@@ -19,12 +20,12 @@ public class AppointmentRequest extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityAppointmentRequestBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        dbData = DBData.getInstance();
+        dbGetData = DBGetData.getInstance();
         appointmentListingOperations();
     }
 
     private void appointmentListingOperations() {
-        ArrayList<Appointment> appointmentList = new ArrayList<>(dbData.getAppointmentData());
+        ArrayList<Appointment> appointmentList = new ArrayList<>(dbGetData.getAppointmentData());
         showAppointmentData(appointmentList);
     }
 
@@ -36,5 +37,5 @@ public class AppointmentRequest extends AppCompatActivity {
     }
 
     ActivityAppointmentRequestBinding binding;
-    private DBData dbData;
+    private DBGetData dbGetData;
 }
