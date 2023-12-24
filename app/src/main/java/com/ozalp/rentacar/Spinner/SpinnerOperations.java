@@ -65,8 +65,7 @@ public class SpinnerOperations {
                     orderByOrWhereQuery = "ORDER BY ModelYear ASC";
                 }
 
-                if (orderByOrWhereQuery != null)
-                    mainActivity.carListingOperations(orderByOrWhereQuery); // verileri getir.
+               execute(mainActivity);
             }
 
             @Override
@@ -74,7 +73,6 @@ public class SpinnerOperations {
             }
         });
     }
-
 
     private static void alertDialog(Context context, MainActivity mainActivity, HashMap<Integer, String> optionList, int position) {
         selectedRadioOption = null;
@@ -116,8 +114,7 @@ public class SpinnerOperations {
                             }
                         }
 
-                        if (orderByOrWhereQuery != null)
-                            mainActivity.carListingOperations(orderByOrWhereQuery);
+                        execute(mainActivity);
                     }
                 }
             });
@@ -127,6 +124,12 @@ public class SpinnerOperations {
             System.out.println(e.getLocalizedMessage());
         }
     }
+
+    private static void execute(MainActivity mainActivity) {
+        if (orderByOrWhereQuery != null)
+            mainActivity.carListingOperations(orderByOrWhereQuery); // verileri getir.
+    }
+
 
     private static String selectedRadioOption = null;
     private static String orderByOrWhereQuery = null;

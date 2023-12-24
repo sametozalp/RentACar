@@ -27,7 +27,22 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/colorPrimary"
                 android:minHeight="?attr/actionBarSize"
-                android:theme="?attr/actionBarTheme"></androidx.appcompat.widget.Toolbar>
+                android:theme="?attr/actionBarTheme">
+
+                <TextView
+                    android:id="@+id/logoutTextView"
+                    android:onClick="logoutTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Çıkış yap!"
+                    android:paddingRight="15dp"
+                    android:textSize="12dp"
+                    android:textColor="@android:color/white"
+                    android:layout_gravity="end" /> <!-- Bu satırda layout_gravity="end" ile sağa hizalama sağlanıyor -->
+
+            </androidx.appcompat.widget.Toolbar>
+
+
         </androidx.cardview.widget.CardView>
 
         <Spinner

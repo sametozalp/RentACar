@@ -33,11 +33,9 @@ public class MainActivity extends AppCompatActivity {
         loginControl();
     }
 
-
     @Override
     protected void onStart() {
         super.onStart();
-        //spinnerOperations();
         carListingOperations(orderByOrWhereQuery);
     }
 
@@ -64,6 +62,13 @@ public class MainActivity extends AppCompatActivity {
         CarListAdapter carListAdapter = new CarListAdapter(carList);
         binding.recyclerView.setAdapter(carListAdapter);
         carListAdapter.notifyDataSetChanged();
+    }
+
+    public void logoutTextView(View view) {
+        sharedPreferences.edit().putString("email", "").apply();
+        Intent intent = new Intent(this, Login.class);
+        startActivity(intent);
+        finish();
     }
 
     private void init() {
