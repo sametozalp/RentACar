@@ -1,22 +1,14 @@
 package com.ozalp.rentacar.Pages;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.ozalp.rentacar.Adapter.CarListAdapter;
 import com.ozalp.rentacar.DatabaseOperations.DBData;
@@ -25,6 +17,7 @@ import com.ozalp.rentacar.Models.Car;
 import com.ozalp.rentacar.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,11 +27,13 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         init();
+        brandMap = dbData.getBrandsData();
         appbar();
         loginControl();
     }
-
+    /*
     private void spinnerOperations() {
+        orderByOrWhereQuery = null;
         Spinner spinner = binding.spinner;
         ArrayList<String> spinnerProperties = new ArrayList<>();
         spinnerProperties.add("Son eklenene göre sırala");
@@ -60,9 +55,12 @@ public class MainActivity extends AppCompatActivity {
                 } else if (position == 1) { // ilk eklenene göre
                     orderByOrWhereQuery = "ORDER BY CarId ASC";
                 } else if (position == 2) { // markaya göre
-                    alertDialog();
+                    alertDialog(brandMap);
+
                 }
-                carListingOperations(orderByOrWhereQuery);
+
+                if (orderByOrWhereQuery != null)
+                    carListingOperations(orderByOrWhereQuery);
             }
 
 
@@ -71,55 +69,64 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-    private void alertDialog() {
+    */
+    /*
+        private void alertDialog(HashMap<Integer, String> optionList) {
+        selectedRadioOption = null;
         try {
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
             builder.setTitle("Seçenekleri Seçin");
 
-            // RadioButtonları içerecek bir RadioGroup oluştur
             RadioGroup radioGroup = new RadioGroup(MainActivity.this);
             radioGroup.setOrientation(RadioGroup.VERTICAL);
 
-            ArrayList<String> optionList = new ArrayList();
-            optionList.add("selam");
-            optionList.add("bebek");
+
             // RadioButtonları for döngüsü ile ekleyin
-            for (String option : optionList) {
+            for (Object option: optionList.values()) {
                 RadioButton radioButton = new RadioButton(MainActivity.this);
-                radioButton.setText(option);
+                radioButton.setText(option.toString());
                 radioGroup.addView(radioButton);
             }
 
-            // RadioGroup'u AlertDialog'a ekle
             builder.setView(radioGroup);
 
-            // Pozitif buton (Seçildiğinde yapılacak işlemler)
             builder.setPositiveButton("Tamam", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    // Seçilen RadioButton'ın değerini al
                     int selectedId = radioGroup.getCheckedRadioButtonId();
                     if (selectedId != -1) {
                         RadioButton selectedRadioButton = radioGroup.findViewById(selectedId);
                         selectedRadioOption = selectedRadioButton.getText().toString();
-                        System.out.println(selectedRadioButton);
+                        System.out.println(selectedRadioOption);
+
+                        if(selectedRadioOption != null) {
+                            int foundKey = 0;
+                            for (Map.Entry<Integer, String> entry : optionList.entrySet()) {
+                                if (entry.getValue().equals(selectedRadioOption)) {
+                                    foundKey = entry.getKey();
+                                    break; // Bulduktan sonra döngüyü sonlandırabiliriz
+                                }
+                            }
+                            orderByOrWhereQuery = "WHERE BrandId = " + foundKey;
+                        }
+                        if(orderByOrWhereQuery != null)
+                            carListingOperations(orderByOrWhereQuery);
                     }
                 }
             });
 
-            // AlertDialog'u göster
             builder.show();
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
         }
     }
-    String selectedRadioOption = "";
+        String selectedRadioOption = null;
+    */
 
     @Override
     protected void onStart() {
         super.onStart();
-        spinnerOperations();
+        //spinnerOperations();
         carListingOperations(orderByOrWhereQuery);
     }
 
@@ -172,7 +179,8 @@ public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
     public SharedPreferences sharedPreferences;
-    public DBData dbData;
+    private DBData dbData;
     ArrayList<Car> carList;
+    HashMap<Integer, String> brandMap;
     private String orderByOrWhereQuery = "ORDER BY CarId DESC";
 }

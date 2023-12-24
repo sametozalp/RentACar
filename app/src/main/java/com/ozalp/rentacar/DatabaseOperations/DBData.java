@@ -6,6 +6,7 @@ import static com.ozalp.rentacar.Models.User.myUser;
 import android.widget.EditText;
 
 import com.ozalp.rentacar.Models.Appointment;
+import com.ozalp.rentacar.Models.Brand;
 import com.ozalp.rentacar.Models.Car;
 import com.ozalp.rentacar.Models.User;
 import com.ozalp.rentacar.Pages.AppointmentRequest;
@@ -16,9 +17,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 public class DBData {
-    private DBData() {
+    protected DBData() {
     }
 
     public static DBData getInstance() {
@@ -94,6 +96,30 @@ public class DBData {
         return 0;
     }
 
+    public HashMap<Integer, String> getBrandsData() {
+
+        HashMap<Integer, String> map = new HashMap<>();
+
+        if (connection != null) {
+            try {
+                String sqlQuery = "Select * From Brands";
+
+                PreparedStatement statement = connection.prepareStatement(sqlQuery);
+                ResultSet resultSet = statement.executeQuery();
+
+                while (resultSet.next()) {
+                    map.put(resultSet.getInt("BrandId"), resultSet.getString("BrandName"));
+                }
+
+                resultSet.close();
+            } catch (SQLException e) {
+                System.out.println(e.getLocalizedMessage());
+            }
+        }
+
+        return map;
+    }
+
     // gönderilen randevu isteklerinin bilgisini alır
     public ArrayList<Appointment> getAppointmentData() {
         Appointment appointment;
@@ -156,7 +182,6 @@ public class DBData {
 
         return appointmentList;
     }
-
 
     public boolean loginQuery(String emailText, String passwordText) {
 
@@ -235,7 +260,7 @@ public class DBData {
         }
     }
 
-    private static Connection connection;
+    protected static Connection connection;
     private static DBData instance;
 }
 //statement.close();
