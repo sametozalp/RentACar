@@ -23,8 +23,6 @@ public class Login extends AppCompatActivity {
         init();
     }
 
-
-
     public void signUpTextView(View view) {
         Intent intent = new Intent(getApplicationContext(), SignUp.class);
         startActivity(intent);

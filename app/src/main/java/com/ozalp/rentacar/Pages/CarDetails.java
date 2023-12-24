@@ -84,30 +84,6 @@ public class CarDetails extends AppCompatActivity {
         return sdf.format(new Date(dateInMillis));
     }
 
-    /*
-    Date formattedStartDate = formatDate(startDate);
-                    Date formattedEndDate = formatDate(endDate);
-
-                    System.out.println(formattedStartDate + "-" + formattedEndDate);
-                    //dbData.appointmentRequest(car, formattedStartDate, formattedStartDate);
-                }
-            }
-        });
-
-        dateRangePicker.show(getSupportFragmentManager(), dateRangePicker.toString());
-    }
-    private Date formatDate(long dateInMillis) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd", Locale.getDefault());
-        String strDate = sdf.format(new Date(dateInMillis));
-        Date date;
-        try {
-            date = sdf.parse(strDate);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-        return date;
-    }
-     */
     private void buttonVisibility(Boolean carStatus) {
         if (carStatus == true) {
             binding.appointmentRequestButton.setText("Araç şu anda kiralamaya uygun değil");
