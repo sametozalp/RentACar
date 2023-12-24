@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.ozalp.rentacar.DatabaseOperations.DBData;
+import com.ozalp.rentacar.DatabaseOperations.DBSendData;
 import com.ozalp.rentacar.Models.Car;
 import com.ozalp.rentacar.databinding.ActivityCarDetailsBinding;
 
@@ -27,7 +28,7 @@ public class CarDetails extends AppCompatActivity {
         binding = ActivityCarDetailsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        dbData = DBData.getInstance();
+        dbSendData = DBSendData.getInstance();
         car = (Car) getIntent().getSerializableExtra("car");
         buttonVisibility(car.getCarStatus());
         showCarDetails(car);
@@ -68,7 +69,7 @@ public class CarDetails extends AppCompatActivity {
                     String formattedStartDate = formatDate(startDate);
                     String formattedEndDate = formatDate(endDate);
 
-                    dbData.appointmentRequest(car, formattedStartDate, formattedEndDate);
+                    dbSendData.appointmentRequest(car, formattedStartDate, formattedEndDate);
 
                     Toast.makeText(getApplicationContext(), "Randevu isteğiniz gönderilmiştir.", Toast.LENGTH_LONG).show();
                     binding.appointmentRequestButton.setEnabled(false);
@@ -93,6 +94,6 @@ public class CarDetails extends AppCompatActivity {
 
     ActivityCarDetailsBinding binding;
     Car car;
-    DBData dbData;
+    private DBSendData dbSendData;
 
 }

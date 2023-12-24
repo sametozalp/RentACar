@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class DBGetData extends DBData {
-    
+
     public static DBGetData getInstance() {
         if (instance == null) {
             connection = connection();

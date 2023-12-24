@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ozalp.rentacar.DatabaseOperations.DBData;
+import com.ozalp.rentacar.DatabaseOperations.DBSendData;
 import com.ozalp.rentacar.databinding.ActivitySignUpBinding;
 
 public class SignUp extends AppCompatActivity {
@@ -44,8 +45,8 @@ public class SignUp extends AppCompatActivity {
 
     private void signUpOperations() {
         String query = "INSERT INTO USERS (FirstName, LastName, Email, Password) VALUES (?, ?, ?, ?)";
-        DBData dbData = DBData.getInstance();
-        int affectedRows = dbData.signUpOperations(query, nameEditText, surnameEditText, emailEditText, passwordEditText);
+        DBSendData dbSendData = DBSendData.getInstance();
+        int affectedRows = dbSendData.signUpOperations(query, nameEditText, surnameEditText, emailEditText, passwordEditText);
         //Singleton
 
         if (affectedRows > 0) {
