@@ -15,10 +15,7 @@ public class DBConnection {
         try {
             Class.forName(driver);
             connection = DriverManager.getConnection(databaseUrl, username, password);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
         }
 

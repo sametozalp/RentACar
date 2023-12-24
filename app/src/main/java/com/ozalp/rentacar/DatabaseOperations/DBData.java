@@ -6,17 +6,14 @@ import static com.ozalp.rentacar.Models.User.myUser;
 import android.widget.EditText;
 
 import com.ozalp.rentacar.Models.Appointment;
-import com.ozalp.rentacar.Models.Brand;
 import com.ozalp.rentacar.Models.Car;
 import com.ozalp.rentacar.Models.User;
-import com.ozalp.rentacar.Pages.AppointmentRequest;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 public class DBData {
@@ -109,6 +106,75 @@ public class DBData {
 
                 while (resultSet.next()) {
                     map.put(resultSet.getInt("BrandId"), resultSet.getString("BrandName"));
+                }
+
+                resultSet.close();
+            } catch (SQLException e) {
+                System.out.println(e.getLocalizedMessage());
+            }
+        }
+
+        return map;
+    }
+    public HashMap<Integer, String> getCarModelsData() {
+
+        HashMap<Integer, String> map = new HashMap<>();
+
+        if (connection != null) {
+            try {
+                String sqlQuery = "Select * From CarModels";
+
+                PreparedStatement statement = connection.prepareStatement(sqlQuery);
+                ResultSet resultSet = statement.executeQuery();
+
+                while (resultSet.next()) {
+                    map.put(resultSet.getInt("ModelId"), resultSet.getString("ModelName"));
+                }
+
+                resultSet.close();
+            } catch (SQLException e) {
+                System.out.println(e.getLocalizedMessage());
+            }
+        }
+
+        return map;
+    }
+    public HashMap<Integer, String> getCarGearTypesData() {
+
+        HashMap<Integer, String> map = new HashMap<>();
+
+        if (connection != null) {
+            try {
+                String sqlQuery = "Select * From GearTypes";
+
+                PreparedStatement statement = connection.prepareStatement(sqlQuery);
+                ResultSet resultSet = statement.executeQuery();
+
+                while (resultSet.next()) {
+                    map.put(resultSet.getInt("GearId"), resultSet.getString("GearTypeName"));
+                }
+
+                resultSet.close();
+            } catch (SQLException e) {
+                System.out.println(e.getLocalizedMessage());
+            }
+        }
+
+        return map;
+    }
+    public HashMap<Integer, String> getCarFuelTypesData() {
+
+        HashMap<Integer, String> map = new HashMap<>();
+
+        if (connection != null) {
+            try {
+                String sqlQuery = "Select * From FuelTypes";
+
+                PreparedStatement statement = connection.prepareStatement(sqlQuery);
+                ResultSet resultSet = statement.executeQuery();
+
+                while (resultSet.next()) {
+                    map.put(resultSet.getInt("FuelTypeId"), resultSet.getString("FuelTypeName"));
                 }
 
                 resultSet.close();
@@ -261,7 +327,7 @@ public class DBData {
     }
 
     protected static Connection connection;
-    private static DBData instance;
+    protected static DBData instance;
 }
 //statement.close();
 //connection.close();
