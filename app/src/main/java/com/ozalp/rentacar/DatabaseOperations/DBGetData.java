@@ -187,7 +187,7 @@ public class DBGetData extends DBData {
 
         if (connection != null) {
             try {
-                String sqlQuery = "SELECT CarId, BrandName, ColorName, ModelYear, DailyPrice, ModelName, CarImage, FuelTypeName, GearTypeName, CarStatus FROM Cars \n" +
+                String sqlQuery = "SELECT CarId, BrandName, ColorName, ModelYear, DailyPrice, ModelName, CarImage, FuelTypeName, GearTypeName, IsSuitable FROM Cars \n" +
                         "JOIN BRANDS ON Cars.BrandId = BRANDS.BrandId\n" +
                         "JOIN Colors ON Cars.ColorId = COLORS.ColorId\n" +
                         "JOIN CarModels ON Cars.ModelId = CarModels.ModelId\n" +
@@ -208,7 +208,7 @@ public class DBGetData extends DBData {
                             resultSet.getString("FuelTypeName"),
                             resultSet.getString("GearTypeName"),
                             resultSet.getString("CarImage"),
-                            resultSet.getBoolean("CarStatus")
+                            resultSet.getBoolean("IsSuitable")
                     );
                     carList.add(car);
                 }

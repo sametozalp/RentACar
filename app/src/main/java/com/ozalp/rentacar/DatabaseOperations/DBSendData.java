@@ -40,9 +40,9 @@ public class DBSendData extends DBData{
     public int signUpOperations(String query, EditText nameEditText, EditText surnameEditText, EditText emailEditText, EditText passwordEditText) {
 
         try (PreparedStatement preparedStatement = getInstance().connection.prepareStatement(query)) {
-            preparedStatement.setString(1, nameEditText.getText().toString());
-            preparedStatement.setString(2, surnameEditText.getText().toString());
-            preparedStatement.setString(3, emailEditText.getText().toString());
+            preparedStatement.setString(1, nameEditText.getText().toString().trim());
+            preparedStatement.setString(2, surnameEditText.getText().toString().trim());
+            preparedStatement.setString(3, emailEditText.getText().toString().trim());
             preparedStatement.setString(4, passwordEditText.getText().toString());
 
             return preparedStatement.executeUpdate();

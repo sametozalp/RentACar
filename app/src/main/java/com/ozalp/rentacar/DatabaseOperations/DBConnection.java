@@ -22,10 +22,11 @@ public class DBConnection {
         return connection;
     }
 
-    String ip = "172.20.10.5";
+    String ip = "192.168.137.217";
+    //String ip = "172.16.31.111";
     private String driver = "net.sourceforge.jtds.jdbc.Driver";
     String username = "sa";
     String password = "Rentacar43";
-    private String databaseUrl = "jdbc:jtds:sqlserver://" + ip + ":1433;databaseName=RentACar;user=sa;password=Rentacar43;";
+    private String databaseUrl = "jdbc:jtds:sqlserver://" + ip + ":1433;databaseName=RentACar;user="+username+";password="+password+";";
     Connection connection;
 }
