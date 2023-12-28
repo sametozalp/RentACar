@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\app",
+    "\\app\\src",
+    "\\app\\src\\main",
+    "\\app\\src\\main\\java",
+    "\\app\\src\\main\\java\\com",
+    "\\app\\src\\main\\java\\com\\ozalp",
+    "\\app\\src\\main\\java\\com\\ozalp\\rentacar",
+    "\\app\\src\\main\\java\\com\\ozalp\\rentacar\\Adapter",
+    "\\app\\src\\main\\java\\com\\ozalp\\rentacar\\MemoryOperations"
+  ],
+  "SelectedNode": "\\app\\src\\main\\java\\com\\ozalp\\rentacar\\Pages\\CarDetails.java",
+  "PreviewInSolutionExplorer": false
+}
