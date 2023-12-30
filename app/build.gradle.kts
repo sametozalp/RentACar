@@ -55,4 +55,6 @@ dependencies {
 
     implementation("mysql:mysql-connector-java:5.1.13")
     implementation("com.microsoft.sqlserver:mssql-jdbc:9.4.0.jre11")
+
+    implementation("com.squareup.picasso:picasso:2.8")
 }

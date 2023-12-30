@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ozalp.rentacar.Pages.CarDetails;
 import com.ozalp.rentacar.Models.Car;
 import com.ozalp.rentacar.databinding.CarCardViewBinding;
+import com.squareup.picasso.Picasso;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -38,6 +39,9 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.CarHolde
             holder.carCardViewBinding.GearTypeTextView.setText(carList.get(position).getGearType());
             holder.carCardViewBinding.FuelTypeTextView.setText(carList.get(position).getFuelType());
             holder.carCardViewBinding.ColorTextView.setText(carList.get(position).getColorName());
+            String img = carList.get(position).getCarImage();
+            if(!img.equals(""))
+                Picasso.get().load(img).into(holder.carCardViewBinding.carImage);
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

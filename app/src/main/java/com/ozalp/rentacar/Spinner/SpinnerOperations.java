@@ -65,7 +65,7 @@ public class SpinnerOperations {
                     orderByOrWhereQuery = "ORDER BY ModelYear ASC";
                 }
 
-               execute(mainActivity);
+                execute(mainActivity);
             }
 
             @Override
