@@ -1,5 +1,7 @@
 package com.ozalp.rentacar.Adapter;
 
+import static com.ozalp.rentacar.Pages.CarDetails.f;
+
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +43,7 @@ public class CarListAdapter extends RecyclerView.Adapter<CarListAdapter.CarHolde
             holder.carCardViewBinding.ColorTextView.setText(carList.get(position).getColorName());
             String img = carList.get(position).getCarImage();
             if(!img.equals(""))
-                Picasso.get().load(img).into(holder.carCardViewBinding.carImage);
+                Picasso.get().load(f+img.substring(42)).into(holder.carCardViewBinding.carImage);
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -45,7 +45,7 @@ public class CarDetails extends AppCompatActivity {
             binding.fuelTypeTextView.setText(car.getFuelType());
             binding.colorTextView.setText(car.getColorName());
             if(!car.getCarImage().equals(""))
-                Picasso.get().load(car.getCarImage()).into(binding.carImage);
+                Picasso.get().load(f+car.getCarImage().substring(42)).into(binding.carImage);
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
         }
@@ -99,5 +99,5 @@ public class CarDetails extends AppCompatActivity {
     ActivityCarDetailsBinding binding;
     Car car;
     private DBSendData dbSendData;
-
+    public static String f = "https://firebasestorage.googleapis.com/v0/b/uploadimageiot.appspot.com";
 }

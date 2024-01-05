@@ -23,9 +23,8 @@ public class DBConnection {
         return connection;
     }
 
-    //String ip = "192.168.137.217";
-    //String ip = "172.16.31.111";
-    private String ip = "172.20.10.5";
+    private String ip = "192.168.42.40";
+    //private String ip = "172.20.10.5";
     private String driver = "net.sourceforge.jtds.jdbc.Driver";
     private String username = "sa";
     private String password = "Rentacar43";
